@@ -65,10 +65,10 @@ Contoh dari implementasi symforce adalah:
 
 ##### Rekomendasi software yang harus diinstall:
 
--[Ubuntu 20.04 ++](https://ubuntu.com/download/desktop)
-- Python 3.8+
-- Jupyter notebook
-- Visual studio code editor
+- [Ubuntu 20.04 ++](https://ubuntu.com/download/desktop)
+- [Python 3.8+](https://www.python.org/downloads/)
+- [Jupyter notebook](https://jupyter.org/)
+- [Visual studio code editor](https://code.visualstudio.com/)
 
 <h1 align="center">Studi Kasus</h1>
 
