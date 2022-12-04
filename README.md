@@ -81,3 +81,5 @@ Pengukuran yang harus dilakukan oleh Robot :
  * Sudut relatif menuju landmark.
 
 Berdasarkan kasus di atas, maka robot memiiki sudut dengan tujuan yang berlawanan arah jarum jam dari sumbu x. Oleh karena itu, pengukuran sudut relatif ditentukan dari arah robot akan maju. Berikut adalah gambar berdasarkan kasus robot yang kita miliki :
+
+![SymForce](docs/problem_setup.png#gh-light-mode-only)
