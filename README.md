@@ -87,8 +87,6 @@ Berdasarkan kasus di atas, maka robot memiiki sudut dengan tujuan yang berlawana
 
 Kali ini studi kasus yang dilakukan adalah robot akan bergerak pada bidang 2 dimensi untuk memperkirakan pose dari langkah selanjutnya menggunakan pengukuran kebisingan. Robot akan mengukur sudut relatif landmark dan jarak tempuh dengan sensor odometri.
 
-![image](https://symforce.org/docs/static/images/robot_2d_localization/problem_setup.png)
-
 Menurut studi kasus di atas tahapan yang akan dilakukan adalah:
 
 1. Import librari symforce
@@ -130,3 +128,33 @@ sf.atan2(landmark_body[1], landmark_body[0])
 ```python
 sf.V3.symbolic("x").norm(epsilon=sf.epsilon())
 ```
+
+<h1 align="center">Visualisasi Hasil Pengoptimalan</h1>
+
+Tujuan kita dapat untuk menemukan `poses` dari robot yang meminimalkan residual dari factor graph, kemudian kita asumsikan posisi landmark ke dalam bentuk yang dapat dicermati dengan baik. Oleh karena itu, kita dapat membuat sebuah [`Optimizer`](https://symforce.org/api/symforce.opt.optimizer.html?highlight=optimizer#module-symforce.opt.optimizer) untuk faktor yang telah ada dan melakukan optimalisasi terhadap pose keys (sisanya akan dianggap sebagai nilai konstan).
+```python
+from symforce.opt.optimizer import Optimizer
+
+optimizer = Optimizer(
+    factors=factors,
+    optimized_keys=[f"poses[{i}]" for i in range(num_poses)],
+    # So that we save more information about each iteration, to visualize later:
+    debug_stats=True,
+)
+```
+
+Kemudian kita dapat run hasil dari optimalisasi [`Optimizer.Result`](https://symforce.org/api/symforce.opt.optimizer.html?highlight=optimizer#symforce.opt.optimizer.Optimizer.Result). Pada bagian ini akan berisi nilai optimalisasi, statistik error dan juga iterasi debug stats (apabila digunakan).
+```python
+result = optimizer.optimize(initial_values)
+```
+
+Visualisasi pengoptimalan :
+ * Bentuk lingkaran berwarna orange merepresentasikan `fixed landmarks`
+ * Bentuk lingkaran biru merepresentasikan robot
+ * Garis putus-putus merepresentasikan perhitungan bearing.
+
+```python
+from data.plotting import plot_solution
+plot_solution(optimizer, result)
+```
+![gif](docs/iterations.gif)
