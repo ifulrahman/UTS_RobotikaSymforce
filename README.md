@@ -71,9 +71,9 @@ atau bisa juga menggunakan alternatif lain seperti [github codespace](https://gi
 - Jupyter notebook
 - Visual studio code editor
 
-<h1 align="center">Implementasi SymForce</h1>
+<h1 align="center">Studi Kasus</h1>
 
-Contoh Studi Kasus : Robot bergerak melalui bidang 2D dan memiliki goal untuk memperkirakan pose pada beberapa langkah kedepan dengan sebuah pengukuran kebisingan (noisy measurements). 
+Contoh Studi Kasus dalam hal ini ialah Robot bergerak melalui bidang 2D dan memiliki goal untuk memperkirakan pose pada beberapa langkah kedepan dengan sebuah pengukuran kebisingan (noisy measurements). 
 
 Pengukuran yang harus dilakukan oleh Robot :
 
@@ -83,3 +83,51 @@ Pengukuran yang harus dilakukan oleh Robot :
 Berdasarkan kasus di atas, maka robot memiiki sudut dengan tujuan yang berlawanan arah jarum jam dari sumbu x. Oleh karena itu, pengukuran sudut relatif ditentukan dari arah robot akan maju. Berikut adalah gambar berdasarkan kasus robot yang kita miliki :
 
 ![SymForce](docs/problem_setup.png#gh-light-mode-only)
+
+<h2 align="center">Contoh Studi kasus</h2>
+
+Kali ini studi kasus yang dilakukan adalah robot akan bergerak pada bidang 2 dimensi untuk memperkirakan pose dari langkah selanjutnya menggunakan pengukuran kebisingan. Robot akan mengukur sudut relatif landmark dan jarak tempuh dengan sensor odometri.
+
+![image](https://symforce.org/docs/static/images/robot_2d_localization/problem_setup.png)
+
+Menurut studi kasus di atas tahapan yang akan dilakukan adalah:
+
+1. Import librari symforce
+
+```python
+import symforce.symbolic as sf
+```
+
+2. Membuat simbolik pose 2 dimensi dan lokasi landmark, menggunakan method symbolic pada library symforce 
+
+```python
+pose = sf.Pose2(
+    t=sf.V2.symbolic("t"),
+    R=sf.Rot2.symbolic("R")
+)
+landmark = sf.V2.symbolic("L")
+```
+
+3. Transformasi landmark kedalam frame lokal robot
+
+```python
+landmark_body = pose.inverse() * landmark
+```
+
+4. Inisialisasi metode jacobian dari landmark body-frame dengan pendekatan tangent-space dari pose 2
+
+```python
+landmark_body.jacobian(pose)
+```
+
+5. Melakukan perhitungan sudut relatif bearing
+
+```python
+sf.atan2(landmark_body[1], landmark_body[0])
+```
+
+6. Menambahkan fungsi epsilon 
+
+```python
+sf.V3.symbolic("x").norm(epsilon=sf.epsilon())
+```
