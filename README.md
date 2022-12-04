@@ -54,19 +54,18 @@ Contoh dari implementasi symforce adalah:
 + Pembuatan kode Eigen yang di-embedded-friendly dengan C++ dengan alokasi memori dinamis nol
 + Kode yang sangat berkinerja, modular, teruji, dan dapat diperluas
 
-<h2 align="center">Spesifikasi Hardware & Software yang terinstall</h2>
+<h2 align="center">Spesifikasi Hardware dan rekomendasi software</h2>
 
-##### Untuk menjalankan simulasi symforce secara optimal bertikut rekomendasi spesifikasi perangkat yang disarankan:
+##### Rekomendasi spesifikasi hardware minimal:
 
 - CPU 4 core
 - RAM 8 GB
 - Mem 50 GB
 
-atau bisa juga menggunakan alternatif lain seperti [github codespace](https://github.com/features/codespaces)
 
-##### Berikut beberapa software yang menjadi rekomendasi penulis:
+##### Rekomendasi software yang harus diinstall:
 
-- Ubuntu 20.04 OS
+-[Ubuntu 20.04 ++](https://ubuntu.com/download/desktop)
 - Python 3.8+
 - Jupyter notebook
 - Visual studio code editor
